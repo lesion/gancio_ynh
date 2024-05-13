@@ -69,6 +69,7 @@ pushd $install_dir
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn config set network-timeout 300000
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn install --production --pure-lockfile
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn cache clean
+	# ynh_exec_warn_less ynh_exec_as $app $install_dir/server/cli.js users create $admin $password admin
 popd
 
 #=================================================
@@ -82,7 +83,6 @@ ynh_script_progression --message="Starting a systemd service..." --weight=1
 ynh_systemd_action --service_name=$app --action="start" --log_path="systemd"
 
 
-ynh_exec_warn_less ynh_exec_as $app $install_dir/server/cli.js users create $admin $password admin
 
 #=================================================
 # END OF SCRIPT
